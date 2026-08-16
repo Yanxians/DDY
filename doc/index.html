@@ -1,1 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>属于我们的回忆录 ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Playfair+Display:wght@400;500&display=swap');
+
+:root{
+  --bg:#f7f3ef;
+  --text:#262321;
+  --muted:#8b8179;
+  --line:#d9d0c8;
+  --card:#ebe5df;
+  --accent:#b58e8a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.nav{
+  position:fixed;
+  z-index:20;
+  top:0;left:0;right:0;
+  height:76px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 5vw;
+  mix-blend-mode:multiply;
+}
+.nav span{
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  letter-spacing:.22em;
+}
+.hero{
+  min-height:100vh;
+  padding:150px 8vw 80px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.hero-top{
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--muted);
+  margin-bottom:45px;
+}
+.hero h1{
+  margin:0;
+  max-width:850px;
+  font-family:"Playfair Display","Songti SC",serif;
+  font-size:clamp(58px,11vw,150px);
+  line-height:.88;
+  font-weight:400;
+  letter-spacing:-.055em;
+}
+.hero h1 .small{
+  display:block;
+  font-size:.48em;
+  line-height:1.15;
+  letter-spacing:-.03em;
+  margin-top:25px;
+}
+.hero-copy{
+  margin-top:70px;
+  margin-left:auto;
+  width:min(320px,70vw);
+  font-family:"Playfair Display","Songti SC",serif;
+  font-size:22px;
+  line-height:1.5;
+}
+.hero-copy em{font-style:italic}
+.scroll{
+  margin-top:80px;
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  letter-spacing:.2em;
+  color:var(--muted);
+}
+.album{
+  width:min(1100px,90vw);
+  margin:0 auto;
+  padding-bottom:150px;
+}
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  padding-bottom:18px;
+  margin-bottom:90px;
+}
+.section-head .label{
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  letter-spacing:.18em;
+}
+.section-head .name{
+  font-family:"Playfair Display",serif;
+  font-size:15px;
+  color:var(--muted);
+}
+.memory{
+  position:relative;
+  margin-bottom:150px;
+}
+.memory:nth-child(even){margin-left:12%}
+.memory-number{
+  font-family:"DM Mono",monospace;
+  font-size:12px;
+  letter-spacing:.15em;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+.photo{
+  width:100%;
+  aspect-ratio:4/3;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.55), rgba(210,201,194,.55));
+  border:1px solid #ddd5ce;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.placeholder{
+  text-align:center;
+  color:#aaa19a;
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  letter-spacing:.16em;
+}
+.placeholder strong{
+  display:block;
+  font-family:"Playfair Display",serif;
+  font-size:34px;
+  font-weight:400;
+  color:#958b84;
+  margin-bottom:8px;
+}
+.memory-info{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  padding-top:24px;
+}
+.memory-info h2{
+  margin:0 0 14px;
+  font-family:"Playfair Display",serif;
+  font-size:28px;
+  font-weight:400;
+  letter-spacing:.03em;
+}
+.memory-info p{
+  margin:0;
+  color:#625b56;
+  font-family:"Songti SC","STSong",serif;
+  font-size:16px;
+  line-height:1.8;
+}
+.date{
+  white-space:nowrap;
+  color:var(--muted);
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  letter-spacing:.08em;
+  padding-top:8px;
+}
+.end{
+  min-height:75vh;
+  border-top:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:80px 20px;
+}
+.end .num{
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  letter-spacing:.2em;
+  color:var(--muted);
+  margin-bottom:35px;
+}
+.end h2{
+  margin:0;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(52px,9vw,120px);
+  font-weight:400;
+  line-height:.9;
+}
+.end p{
+  margin-top:42px;
+  font-family:"Songti SC","STSong",serif;
+  color:#625b56;
+  line-height:2;
+}
+.footer{
+  padding:30px 5vw 45px;
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-family:"DM Mono",monospace;
+  font-size:9px;
+  letter-spacing:.13em;
+}
+.reveal{
+  opacity:0;
+  transform:translateY(50px);
+  transition:opacity 1s ease,transform 1s ease;
+}
+.reveal.show{opacity:1;transform:none}
+
+@media(max-width:650px){
+  .nav{height:64px;padding:0 22px}
+  .hero{padding:120px 24px 65px;min-height:92vh}
+  .hero h1{font-size:64px}
+  .hero-copy{margin-top:55px;font-size:19px}
+  .album{width:calc(100% - 40px)}
+  .section-head{margin-bottom:65px}
+  .memory,.memory:nth-child(even){margin-left:0;margin-bottom:105px}
+  .photo{aspect-ratio:3/4}
+  .memory-info{display:block}
+  .date{margin-top:18px}
+  .end{min-height:70vh}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#top"><span>MEMORY</span></a>
+  <a href="#album"><span>ALBUM</span></a>
+</nav>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-top">FOR 达妍语 · 2025 — ∞</div>
+    <h1>
+      属于我们的
+      <span class="small">回忆录 ♡</span>
+    </h1>
+    <div class="hero-copy">
+      Every moment<br>
+      with you<br>
+      is worth<br>
+      <em>remembering.</em>
+    </div>
+    <div class="scroll">SCROLL TO EXPLORE ↓</div>
+  </section>
+
+  <section class="album" id="album">
+    <div class="section-head">
+      <div class="label">MEMORY / ALBUM</div>
+      <div class="name">达妍语 ♡</div>
+    </div>
+
+    <article class="memory reveal">
+      <div class="memory-number">01</div>
+      <div class="photo"><div class="placeholder"><strong>PHOTO 01</strong>IMAGE PLACEHOLDER</div></div>
+      <div class="memory-info">
+        <div><h2>FIRST MEMORY</h2><p>故事的开始，<br>藏在第一次记录里。</p></div>
+        <div class="date">May 03, 2025</div>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <div class="memory-number">02</div>
+      <div class="photo"><div class="placeholder"><strong>PHOTO 02</strong>IMAGE PLACEHOLDER</div></div>
+      <div class="memory-info">
+        <div><h2>ON THE WAY</h2><p>一起走过的路，<br>后来都变成了回忆。</p></div>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <div class="memory-number">03</div>
+      <div class="photo"><div class="placeholder"><strong>PHOTO 03</strong>IMAGE PLACEHOLDER</div></div>
+      <div class="memory-info">
+        <div><h2>CITY BUS</h2><p>普通的一天，<br>因为有你变得特别。</p></div>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <div class="memory-number">04</div>
+      <div class="photo"><div class="placeholder"><strong>PHOTO 04</strong>IMAGE PLACEHOLDER</div></div>
+      <div class="memory-info">
+        <div><h2>COFFEE TIME</h2><p>那些平凡下午，<br>也值得收藏。</p></div>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <div class="memory-number">05</div>
+      <div class="photo"><div class="placeholder"><strong>PHOTO 05</strong>IMAGE PLACEHOLDER</div></div>
+      <div class="memory-info">
+        <div><h2>PINK MOMENT</h2><p>你笑起来的时候，<br>世界会变柔软。</p></div>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <div class="memory-number">06</div>
+      <div class="photo"><div class="placeholder"><strong>PHOTO 06</strong>IMAGE PLACEHOLDER</div></div>
+      <div class="memory-info">
+        <div><h2>SHANGHAI</h2><p>城市很大，<br>但遇见你很幸运。</p></div>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <div class="memory-number">07</div>
+      <div class="photo"><div class="placeholder"><strong>PHOTO 07</strong>IMAGE PLACEHOLDER</div></div>
+      <div class="memory-info">
+        <div><h2>MAKE A WISH</h2><p>希望未来每一年，<br>都有你的生日。</p></div>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <div class="memory-number">08</div>
+      <div class="photo"><div class="placeholder"><strong>PHOTO 08</strong>IMAGE PLACEHOLDER</div></div>
+      <div class="memory-info">
+        <div><h2>TO BE CONTINUED</h2><p>我们的故事，<br>还没有结束。</p></div>
+      </div>
+    </article>
+
+    <section class="end reveal">
+      <div class="num">08 / TO BE CONTINUED</div>
+      <h2>TO BE<br>CONTINUED ♡</h2>
+      <p>我们的故事，<br>还没有结束。</p>
+    </section>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>FOR 达妍语</span>
+  <span>WITH LOVE ♡</span>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
 
