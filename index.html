@@ -75,7 +75,8 @@ a{color:inherit;text-decoration:none}
   padding:6px 14px;
   border-radius:20px;
   border:1px solid rgba(217, 208, 200, 0.8);
-  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
 }
 .together-timer .prefix{
   color:var(--muted);
@@ -179,21 +180,6 @@ a{color:inherit;text-decoration:none}
   object-fit:cover;
   display:block;
 }
-.placeholder{
-  text-align:center;
-  color:#aaa19a;
-  font-family:"DM Mono",monospace;
-  font-size:10px;
-  letter-spacing:.16em;
-}
-.placeholder strong{
-  display:block;
-  font-family:"Playfair Display",serif;
-  font-size:34px;
-  font-weight:400;
-  color:#958b84;
-  margin-bottom:8px;
-}
 .memory-info{
   display:flex;
   justify-content:space-between;
@@ -293,6 +279,7 @@ a{color:inherit;text-decoration:none}
   border:1px solid rgba(80,70,65,.25);
   border-radius:50%;
   background:rgba(247,243,239,.82);
+  -webkit-backdrop-filter:blur(10px);
   backdrop-filter:blur(10px);
   display:flex;
   align-items:center;
@@ -356,8 +343,8 @@ a{color:inherit;text-decoration:none}
   <a href="#album"><span>ALBUM</span></a>
 </nav>
 
-<!-- BGM -->
-<audio id="bgm" src="cele_birthday.mp3" loop preload="auto"></audio>
+<!-- BGM 音频 -->
+<audio id="bgm" src="cele_birthday.mp3" loop preload="auto" playsinline></audio>
 
 <div class="bgm-tip" id="bgmTip">BGM · TAP TO PLAY</div>
 <button class="bgm-control" id="bgmControl" aria-label="播放/暂停音乐">
@@ -373,9 +360,9 @@ a{color:inherit;text-decoration:none}
       <div class="together-timer" id="togetherTimer">
         <span class="prefix" id="timerPrefix">我们已经在一起</span>
         <span class="time-val" id="days">0</span><span class="unit">天</span>
-        <span class="time-val" id="hours">0</span><span class="unit">时</span>
-        <span class="time-val" id="minutes">0</span><span class="unit">分</span>
-        <span class="time-val" id="seconds">0</span><span class="unit">秒</span>
+        <span class="time-val" id="hours">00</span><span class="unit">时</span>
+        <span class="time-val" id="minutes">00</span><span class="unit">分</span>
+        <span class="time-val" id="seconds">00</span><span class="unit">秒</span>
       </div>
     </div>
 
@@ -400,7 +387,9 @@ a{color:inherit;text-decoration:none}
 
     <article class="memory reveal">
       <div class="memory-number">01</div>
-      <div class="photo"><div class="placeholder"><strong>PHOTO 01</strong><img src="images/collage.png" alt="FIRST MEMORY PHOTO"></div></div>
+      <div class="photo">
+        <img src="images/collage.png" alt="FIRST MEMORY PHOTO">
+      </div>
       <div class="memory-info">
         <div><h2>FIRST MEMORY</h2><p>故事的开始，<br>藏在第一次记录里。</p></div>
         <div class="date">May 03, 2025</div>
@@ -409,7 +398,9 @@ a{color:inherit;text-decoration:none}
 
     <article class="memory reveal">
       <div class="memory-number">02</div>
-      <div class="photo"><div class="placeholder"><strong>PHOTO 02</strong><img src="images/graduate1.jpg" alt="FIRST MEMORY PHOTO"></div></div>
+      <div class="photo">
+        <img src="images/graduate1.jpg" alt="ON THE WAY PHOTO">
+      </div>
       <div class="memory-info">
         <div><h2>ON THE WAY</h2><p>一起走过的路，<br>后来都变成了回忆。</p></div>
       </div>
@@ -417,7 +408,9 @@ a{color:inherit;text-decoration:none}
 
     <article class="memory reveal">
       <div class="memory-number">03</div>
-      <div class="photo"><div class="placeholder"><strong>PHOTO 03</strong><img src="images/graduate2.jpg" alt="FIRST MEMORY PHOTO"></div></div>
+      <div class="photo">
+        <img src="images/graduate2.jpg" alt="CITY BUS PHOTO">
+      </div>
       <div class="memory-info">
         <div><h2>CITY BUS</h2><p>普通的一天，<br>因为有你变得特别。</p></div>
       </div>
@@ -425,7 +418,9 @@ a{color:inherit;text-decoration:none}
 
     <article class="memory reveal">
       <div class="memory-number">04</div>
-      <div class="photo"><div class="placeholder"><strong>PHOTO 04</strong><img src="images/yunnan1.jpg" alt="FIRST MEMORY PHOTO"></div></div>
+      <div class="photo">
+        <img src="images/yunnan1.jpg" alt="COFFEE TIME PHOTO">
+      </div>
       <div class="memory-info">
         <div><h2>COFFEE TIME</h2><p>那些平凡下午，<br>也值得收藏。</p></div>
       </div>
@@ -433,7 +428,9 @@ a{color:inherit;text-decoration:none}
 
     <article class="memory reveal">
       <div class="memory-number">05</div>
-      <div class="photo"><div class="placeholder"><strong>PHOTO 05</strong><img src="images/yunnan2.jpg" alt="FIRST MEMORY PHOTO"></div></div>
+      <div class="photo">
+        <img src="images/yunnan2.jpg" alt="PINK MOMENT PHOTO">
+      </div>
       <div class="memory-info">
         <div><h2>PINK MOMENT</h2><p>你笑起来的时候，<br>世界会变柔软。</p></div>
       </div>
@@ -441,7 +438,9 @@ a{color:inherit;text-decoration:none}
 
     <article class="memory reveal">
       <div class="memory-number">06</div>
-      <div class="photo"><div class="placeholder"><strong>PHOTO 06</strong><img src="images/regular1.jpg" alt="FIRST MEMORY PHOTO"></div></div>
+      <div class="photo">
+        <img src="images/regular1.jpg" alt="SHANGHAI PHOTO">
+      </div>
       <div class="memory-info">
         <div><h2>SHANGHAI</h2><p>城市很大，<br>但遇见你很幸运。</p></div>
       </div>
@@ -449,7 +448,9 @@ a{color:inherit;text-decoration:none}
 
     <article class="memory reveal">
       <div class="memory-number">07</div>
-      <div class="photo"><div class="placeholder"><strong>PHOTO 07</strong><img src="images/regular2.jpg" alt="FIRST MEMORY PHOTO"></div></div>
+      <div class="photo">
+        <img src="images/regular2.jpg" alt="MAKE A WISH PHOTO">
+      </div>
       <div class="memory-info">
         <div><h2>MAKE A WISH</h2><p>希望未来每一年，<br>都有你的生日。</p></div>
       </div>
@@ -457,7 +458,9 @@ a{color:inherit;text-decoration:none}
 
     <article class="memory reveal">
       <div class="memory-number">08</div>
-      <div class="photo"><div class="placeholder"><strong>PHOTO 08</strong><img src="images/col_pic1.jpg" alt="FIRST MEMORY PHOTO"></div></div>
+      <div class="photo">
+        <img src="images/col_pic1.jpg" alt="TO BE CONTINUED PHOTO">
+      </div>
       <div class="memory-info">
         <div><h2>TO BE CONTINUED</h2><p>我们的故事，<br>还没有结束。</p></div>
       </div>
@@ -478,14 +481,12 @@ a{color:inherit;text-decoration:none}
 
 <script>
 // --- 恋爱天数计算器逻辑 ---
-// 设定起始时间：北京时间 2026年6月30日 11:30:00 (UTC+8)
 const startDate = new Date("2026-06-30T11:30:00+08:00").getTime();
 
 function updateTimer() {
   const now = new Date().getTime();
   let diff = now - startDate;
 
-  // 如果时间还没到达设定的起始点，显示倒计时，否则显示已经在一起的时间
   if (diff < 0) {
     document.getElementById('timerPrefix').textContent = '距离我们在一起还有';
     diff = Math.abs(diff);
@@ -530,7 +531,7 @@ bgmControl.addEventListener('click', async () => {
       bgmControl.classList.add('playing');
       bgmTip.textContent = 'BGM · PLAYING';
     } catch (e) {
-      bgmTip.textContent = 'ADD bgm.mp3';
+      bgmTip.textContent = '请检查 cele_birthday.mp3';
     }
   } else {
     bgm.pause();
