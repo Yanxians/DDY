@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>属于我们的回忆录 ♡</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Playfair+Display:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
 
 :root{
   --bg:#f7f3ef;
@@ -43,18 +43,57 @@ a{color:inherit;text-decoration:none}
 }
 .hero{
   min-height:100vh;
-  padding:150px 8vw 80px;
+  padding:140px 8vw 80px;
   display:flex;
   flex-direction:column;
   justify-content:center;
+}
+.hero-meta{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:35px;
 }
 .hero-top{
   font-family:"DM Mono",monospace;
   font-size:11px;
   letter-spacing:.18em;
   color:var(--muted);
-  margin-bottom:45px;
 }
+
+/* 恋爱计时器样式 */
+.together-timer{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:"Songti SC","STSong","Playfair Display",serif;
+  font-size:13px;
+  color:var(--text);
+  background:rgba(217, 208, 200, 0.35);
+  padding:6px 14px;
+  border-radius:20px;
+  border:1px solid rgba(217, 208, 200, 0.8);
+  backdrop-filter:blur(4px);
+}
+.together-timer .prefix{
+  color:var(--muted);
+  font-size:12px;
+}
+.together-timer .time-val{
+  font-family:"DM Mono",monospace;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.05em;
+  color:#4a3f39;
+}
+.together-timer .unit{
+  font-size:11px;
+  color:var(--muted);
+  margin-right:2px;
+}
+
 .hero h1{
   margin:0;
   max-width:850px;
@@ -231,7 +270,8 @@ a{color:inherit;text-decoration:none}
 
 @media(max-width:650px){
   .nav{height:64px;padding:0 22px}
-  .hero{padding:120px 24px 65px;min-height:92vh}
+  .hero{padding:110px 24px 65px;min-height:92vh}
+  .hero-meta{flex-direction:column;gap:12px;margin-bottom:28px}
   .hero h1{font-size:64px}
   .hero-copy{margin-top:55px;font-size:19px}
   .album{width:calc(100% - 40px)}
@@ -316,9 +356,8 @@ a{color:inherit;text-decoration:none}
   <a href="#album"><span>ALBUM</span></a>
 </nav>
 
-
-<!-- BGM：暂时使用占位路径 bgm.mp3 -->
-<audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+<!-- BGM -->
+<audio id="bgm" src="cele_birthday.mp3" loop preload="auto"></audio>
 
 <div class="bgm-tip" id="bgmTip">BGM · TAP TO PLAY</div>
 <button class="bgm-control" id="bgmControl" aria-label="播放/暂停音乐">
@@ -327,7 +366,19 @@ a{color:inherit;text-decoration:none}
 
 <main id="top">
   <section class="hero">
-    <div class="hero-top">FOR 达妍语 · 2025 — ∞</div>
+    <div class="hero-meta">
+      <div class="hero-top">FOR 达妍语 · 2025 — ∞</div>
+      
+      <!-- 计时器徽章 -->
+      <div class="together-timer" id="togetherTimer">
+        <span class="prefix" id="timerPrefix">我们已经在一起</span>
+        <span class="time-val" id="days">0</span><span class="unit">天</span>
+        <span class="time-val" id="hours">0</span><span class="unit">时</span>
+        <span class="time-val" id="minutes">0</span><span class="unit">分</span>
+        <span class="time-val" id="seconds">0</span><span class="unit">秒</span>
+      </div>
+    </div>
+
     <h1>
       属于我们的
       <span class="small">回忆录 ♡</span>
@@ -426,6 +477,37 @@ a{color:inherit;text-decoration:none}
 </footer>
 
 <script>
+// --- 恋爱天数计算器逻辑 ---
+// 设定起始时间：北京时间 2026年6月30日 11:30:00 (UTC+8)
+const startDate = new Date("2026-06-30T11:30:00+08:00").getTime();
+
+function updateTimer() {
+  const now = new Date().getTime();
+  let diff = now - startDate;
+
+  // 如果时间还没到达设定的起始点，显示倒计时，否则显示已经在一起的时间
+  if (diff < 0) {
+    document.getElementById('timerPrefix').textContent = '距离我们在一起还有';
+    diff = Math.abs(diff);
+  } else {
+    document.getElementById('timerPrefix').textContent = '我们已经在一起';
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById('days').textContent = days;
+  document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+  document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+}
+
+updateTimer();
+setInterval(updateTimer, 1000);
+
+// --- 动画与音乐控制 ---
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){
@@ -465,7 +547,6 @@ bgm.addEventListener('pause', () => {
   bgmControl.classList.remove('playing');
   bgmTip.textContent = 'BGM · PAUSED';
 });
-
 </script>
 </body>
 </html>
